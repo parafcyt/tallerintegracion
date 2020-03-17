@@ -21,7 +21,7 @@ CREATE TABLE verificador(
 );
 
 CREATE TABLE conductor(
-    dni int PRIMARY KEY,
+    dni varchar(20) PRIMARY KEY,
     nombre varchar(40) not null,
     apellido varchar(40) not null
 );
@@ -35,7 +35,7 @@ CREATE TABLE equipo(
     id serial PRIMARY KEY,
     nombre varchar(40) not null,
     activo boolean default false,
-    nroactual int not null
+    nroactual int 
 );
 
 CREATE TABLE periodoutilizable(
@@ -51,7 +51,7 @@ CREATE TABLE prestamo(
     id serial PRIMARY KEY, 
     activo boolean,
     fechaprestamo date not null,
-    horaprestamo time not null,
+    horaprestamo time,
     nroinicial int not null,
     fechadevolucion date,
     horadevolucion time,
@@ -63,16 +63,16 @@ CREATE TABLE prestamo(
 CREATE TABLE prueba(
     id serial PRIMARY KEY,
     fecha date not null,
-    hora time not null,
+    hora time,
     nromuestra int not null,
     resultado float not null check(resultado>=0.0),
-    nroacta int default 0,
-    nroretencion int default 0,
+    nroacta int,
+    nroretencion int,
     verificado boolean default false,
     rechazado boolean,
     descripcionrechazo varchar(100),
     idverificador int references verificador(id), 
-    idconductor int references conductor(dni)
+    dniconductor varchar references conductor(dni)
     iddominio varchar references dominio(id),
     idprestamo int references prestamo(id)
 );
